@@ -104,7 +104,7 @@ export default function Home() {
             FG
           </div>
           <div>
-            <p className="font-semibold tracking-tight">FactGuard</p>
+            <p className="font-semibold tracking-tight">FackGuard</p>
             <p className="text-xs text-slate-400 -mt-0.5">
               Mini Fake News Detector
             </p>
