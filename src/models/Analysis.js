@@ -6,9 +6,25 @@ const AnalysisSchema = new mongoose.Schema(
     inputType: { type: String, enum: ["text", "url"], required: true },
     text: { type: String },
     url: { type: String },
-    label: { type: String, enum: ["FAKE", "SUSPECT", "LIKELY_REAL"], required: true },
-    score: { type: Number, required: true }, // 0-100 (fake score)
+
+    // Final label/score saved for card
+    label: {
+      type: String,
+      enum: ["FAKE", "SUSPECT", "LIKELY_REAL"],
+      required: true,
+    },
+    score: { type: Number, required: true },
+
     reasons: [{ type: String }],
+
+    // --- NEW: Gemini details (optional) ---
+    aiLabel: {
+      type: String,
+      enum: ["FAKE", "SUSPECT", "LIKELY_REAL"],
+      required: false,
+    },
+    aiScore: { type: Number, required: false },
+    aiReasons: [{ type: String }],
   },
   { timestamps: true }
 );

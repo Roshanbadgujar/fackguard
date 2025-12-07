@@ -22,6 +22,7 @@ export default function Home() {
   const [result, setResult] = useState(null);
   const [history, setHistory] = useState([]);
   const [error, setError] = useState("");
+  const [useAi, setUseAi] = useState(true); // default ON
 
   const fetchHistory = async () => {
     try {
@@ -75,6 +76,7 @@ export default function Home() {
           mode,
           text: mode === "text" ? text : undefined,
           url: mode === "url" ? url : undefined,
+          useAi,
         }),
       });
 
@@ -204,9 +206,24 @@ export default function Home() {
                 </button>
               </div>
 
-              <span className="text-[11px] text-slate-400">
-                Heuristic based · Offline friendly
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] text-slate-400 hidden sm:inline">
+                  AI (Gemini) checker
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setUseAi((v) => !v)}
+                  className={`relative inline-flex h-5 w-9 items-center rounded-full border border-white/15 transition ${
+                    useAi ? "bg-emerald-500/70" : "bg-slate-800"
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition ${
+                      useAi ? "translate-x-4" : "translate-x-1"
+                    }`}
+                  />
+                </button>
+              </div>
             </div>
 
             {/* inputs */}
