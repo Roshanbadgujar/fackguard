@@ -143,18 +143,18 @@ export default function Home() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-md">
             {[
-              {
-                title: "Heuristic scoring",
-                desc: "Checks clickbait tone, all caps & more.",
-              },
-              {
-                title: "Source awareness",
-                desc: "Understands trusted vs sus domains.",
-              },
-              {
-                title: "Mini project ready",
-                desc: "Clean code, API + DB + UI.",
-              },
+             {
+                title: "Advanced Heuristic Engine",
+                desc: "Detects manipulative writing patterns such as clickbait tone, exaggerated wording, all-caps emphasis, and abnormal punctuation."
+             },
+             {
+                title: "Source Intelligence",
+                desc: "Evaluates domain reputation, identifies suspicious websites, and enhances accuracy through credibility scoring."
+             },
+             {
+                title: "Unified Detection Platform",
+                desc: "Combines AI processing, rule-based analysis, and seamless data handling with a polished, interactive interface."
+             }
             ].map((item, idx) => (
               <motion.div
                 key={item.title}
