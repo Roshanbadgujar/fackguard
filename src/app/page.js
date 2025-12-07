@@ -26,10 +26,26 @@ export default function Home() {
   const fetchHistory = async () => {
     try {
       const res = await fetch("/api/history");
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("History API error:", res.status, text);
+        // error pe history ko empty array hi rakho
+        setHistory([]);
+        return;
+      }
+
       const data = await res.json();
-      setHistory(data);
+
+      // agar kisi wajah se array nahi hai, to crash avoid karo
+      if (Array.isArray(data)) {
+        setHistory(data);
+      } else {
+        console.warn("History API did not return an array:", data);
+        setHistory([]);
+      }
     } catch (e) {
-      console.error(e);
+      console.error("History fetch failed:", e);
+      setHistory([]);
     }
   };
 
@@ -287,7 +303,9 @@ export default function Home() {
                 >
                   <div className="flex items-center justify-between gap-3">
                     <span
-                      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] border ${LABEL_COLORS[result.label]}`}
+                      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] border ${
+                        LABEL_COLORS[result.label]
+                      }`}
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-current" />
                       {result.label.replace("_", " ")}
@@ -349,40 +367,41 @@ export default function Home() {
                 Last {history.length || 0} entries
               </span>
             </div>
-
-            {history.length === 0 ? (
+            {Array.isArray(history) && history.length === 0 ? (
               <p className="text-[11px] text-slate-500">
                 You haven&apos;t analysed anything yet.
               </p>
             ) : (
-              <div className="flex gap-3 overflow-x-auto pb-1">
-                {history.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    whileHover={{ y: -4 }}
-                    className="min-w-[180px] max-w-[230px] rounded-2xl border border-white/10 bg-slate-900/80 px-3 py-2"
-                  >
-                    <div className="flex items-center justify-between gap-2 mb-1.5">
-                      <span
-                        className={`px-2 py-0.5 rounded-full text-[10px] border ${LABEL_COLORS[item.label]}`}
-                      >
-                        {item.label.replace("_", " ")}
-                      </span>
-                      <span className="text-[10px] text-slate-500">
-                        {item.score}/100
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-300 line-clamp-3">
-                      {item.inputType === "text"
-                        ? item.text
-                        : item.url}
-                    </p>
-                    <p className="mt-1 text-[10px] text-slate-500">
-                      {new Date(item.createdAt).toLocaleTimeString()}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
+              Array.isArray(history) && (
+                <div className="flex gap-3 overflow-x-auto pb-1">
+                  {history.map((item) => (
+                    <motion.div
+                      key={item.id}
+                      whileHover={{ y: -4 }}
+                      className="min-w-[180px] max-w-[230px] rounded-2xl border border-white/10 bg-slate-900/80 px-3 py-2"
+                    >
+                      <div className="flex items-center justify-between gap-2 mb-1.5">
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-[10px] border ${
+                            LABEL_COLORS[item.label]
+                          }`}
+                        >
+                          {item.label.replace("_", " ")}
+                        </span>
+                        <span className="text-[10px] text-slate-500">
+                          {item.score}/100
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-300 line-clamp-3">
+                        {item.inputType === "text" ? item.text : item.url}
+                      </p>
+                      <p className="mt-1 text-[10px] text-slate-500">
+                        {new Date(item.createdAt).toLocaleTimeString()}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+              )
             )}
           </motion.div>
         </motion.section>

@@ -1,4 +1,3 @@
-// src/app/api/history/route.js
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Analysis from "@/models/Analysis";
@@ -6,11 +5,13 @@ import Analysis from "@/models/Analysis";
 export async function GET() {
   try {
     await connectDB();
+
     const items = await Analysis.find({})
       .sort({ createdAt: -1 })
       .limit(10)
       .lean();
 
+    // YAHAN se hamesha array ja raha hai
     return NextResponse.json(
       items.map((i) => ({
         id: i._id,
@@ -25,9 +26,8 @@ export async function GET() {
     );
   } catch (err) {
     console.error("HISTORY_API_ERROR", err);
-    return NextResponse.json(
-      { message: "Server error" },
-      { status: 500 }
-    );
+    // Error me bhi array de sakte, taaki front-end simple rahe:
+    return NextResponse.json([], { status: 500 });
+    // ya {message: "..."} bhi de sakte ho, par tab front-end guard zaruri hai
   }
 }
