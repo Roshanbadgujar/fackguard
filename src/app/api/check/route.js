@@ -10,10 +10,7 @@ export async function POST(req) {
     const { mode, text, url } = body; // mode: "text" | "url"
 
     if (!mode || (mode === "text" && !text) || (mode === "url" && !url)) {
-      return NextResponse.json(
-        { message: "Invalid payload" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "Invalid payload" }, { status: 400 });
     }
 
     await connectDB();
@@ -53,9 +50,8 @@ export async function POST(req) {
   } catch (err) {
     console.error("CHECK_API_ERROR", err);
     return NextResponse.json(
-      { message: "Server error" },
+      { message: err.message || "Server error" },
       { status: 500 }
     );
   }
 }
-
