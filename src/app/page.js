@@ -135,7 +135,7 @@ export default function Home() {
               in seconds.
             </h1>
             <p className="mt-4 text-sm sm:text-base text-slate-300 max-w-xl">
-              Paste any headline, story or link. FactGuard will quickly score
+              Paste any headline, story or link. FackGuard will quickly score
               how suspicious it looks using heuristic checks on language,
               structure and source.
             </p>
