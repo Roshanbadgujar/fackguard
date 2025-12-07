@@ -1,36 +1,210 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+🌐 FactGuard – AI-Powered Fake News Detection System
 
-## Getting Started
+A polished mini-project built with Next.js, MongoDB & Gemini 2.5 Flash AI
 
-First, run the development server:
+<div align="center">
+🔥 Full-Stack · 🧠 AI-Driven · 🎨 Animated UI · ⚡ Production Ready
+</div>
+📌 Overview
 
-```bash
+FactGuard is an intelligent fake-news detection system designed to classify any news text or URL as:
+
+FAKE
+
+SUSPECT
+
+LIKELY REAL
+
+It uses a hybrid detection engine that combines:
+
+🧠 Gemini 2.5 Flash AI (primary classifier)
+
+⚙️ Heuristic rule-based analysis (offline fallback)
+
+🗃️ MongoDB history tracking
+
+🎨 Modern, animated UI with Tailwind + Framer Motion
+
+Though created as a mini project, it is engineered with full-stack, industry-grade structure.
+
+✨ Features
+🔍 1. Dual-Engine Fake News Detection
+AI Engine (Gemini 2.5 Flash)
+
+Generates classification: FAKE / SUSPECT / LIKELY REAL
+
+Produces a fake score (0–100)
+
+Provides short, meaningful bullet-point reasons
+
+Heuristic Engine
+
+Works offline & checks:
+
+Clickbait keywords
+
+Excessive ALL-CAPS usage
+
+URL credibility
+
+Exclamation / sensational patterns
+
+Unsupported numeric claims
+
+Both engines combine to create a stronger, more accurate score.
+
+⚡ 2. Modern UI with Animations
+
+Glassmorphism design
+
+Smooth transitions with Framer Motion
+
+Live analysis with animated loaders
+
+AI toggle switch (ON/OFF)
+
+Result cards with status badges
+
+🗂️ 3. Analysis History
+
+Every analysis is stored in MongoDB and shown as:
+
+Result label
+
+Fake score
+
+Snippet of text
+
+Timestamp
+
+🌐 4. Works Offline + Online
+
+AI disabled → heuristic only
+
+AI enabled → Gemini-powered analysis
+
+Safe fallbacks prevent crashes
+
+🔐 5. Secure & Production Ready
+
+Environment-based API keys
+
+No public key exposure
+
+Sanitized database writes
+
+Stable Next.js API routes
+
+🛠️ Tech Stack
+Layer	Technology
+Frontend	Next.js 16 (App Router)
+UI Styling	Tailwind CSS
+Animations	Framer Motion
+Backend	Next.js API Routes
+Database	MongoDB + Mongoose
+AI Engine	Google Gemini 2.5 Flash
+Deployment	Vercel / Render
+🖼️ Screenshots
+
+(Add your own images here)
+
+![Homepage](./screens/home.png)
+![Result](./screens/result.png)
+![History](./screens/history.png)
+
+📦 Installation Guide
+1️⃣ Clone the repo
+git clone https://github.com/Roshanbadgujar/fackguard.git 
+cd factguard
+
+2️⃣ Install dependencies
+npm install
+
+3️⃣ Add environment variables
+
+Create a file named .env.local:
+
+MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/factguard?retryWrites=false&w=majority
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+
+4️⃣ Start local development
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+App runs at → http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🧠 How Detection Works
+If user submits TEXT
 
-## Learn More
+Heuristic system analyzes tone & patterns
 
-To learn more about Next.js, take a look at the following resources:
+Gemini AI generates its classification
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Both results merge into a final score
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Saved to database
 
-## Deploy on Vercel
+Displayed with animations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If user submits URL
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+URL credibility scoring
+
+AI disabled (text-only for now)
+
+📡 API Endpoints
+🔹 POST /api/check
+
+Request
+
+{
+  "mode": "text",
+  "text": "Your news content...",
+  "useAi": true
+}
+
+
+Response
+
+{
+  "label": "FAKE",
+  "score": 87,
+  "reasons": ["Clickbait words detected", "AI predicts high probability"],
+  "ai": {...},
+  "heuristic": {...}
+}
+
+🔹 GET /api/history
+
+Returns latest 10 analyses.
+
+🚀 Deployment (Vercel)
+
+Push your code to GitHub
+
+Import repo into Vercel
+
+Add environment variables
+
+Deploy — done! 🎉
+
+🔮 Future Enhancements
+
+AI confidence meter
+
+Fact-source verification
+
+PDF report generator
+
+Admin dashboard
+
+Multi-language detection
+
+❤️ Credits
+
+Developer: Your Name
+Mini Project · Full-Stack + AI · 2025
+
+📄 License
+
+MIT License © 2025 — Free to use & modify.
